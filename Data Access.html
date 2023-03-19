@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My UpWork Data Example</title>
+
+    <style>
+
+        #my-text-area {
+            font-family:'Times New Roman', Times, serif";
+        }
+
+        #loader {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            display: none;
+        }
+
+        #loader:after {
+            content: " ";
+            display: block;
+            width: 18px;
+            height: 18px;
+            margin: 2px;
+            border-radius: 50%;
+            border: 2px solid #241f1f;
+            border-color: #241f1f transparent #241f1f transparent;
+            animation: lds-dual-ring 1.2s linear infinite;
+        }
+
+        @keyframes lds-dual-ring {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        #my-text-area {
+            display: block;
+            width: 100%;
+            margin-top: 16px;
+        }
+    </style>
+
+</head>
+<body>
+
+
+    <!--Elements-->
+    <button id="get-text-btn">Get Data</button>
+    <div id="loader"></div>
+    <textarea id="my-text-area" rows="30" placeholder="Text Area:">
+    </textarea>
+
+
+    <!--Script-->
+    <script>
+
+                //PROTOTYPE:
+                function Student(name, address, phone, course, programModel) {
+                                this.name = name;
+                                this.address = address;
+                                this.phone = phone;
+                                this.course = course;
+                                this.programModel = programModel;
+                            }
+
+                        // TRANSFERING METHOD FROM FUNCTION() - in .PROTOTYPE OBJECT:
+                        Student.prototype.getName = function () {
+                            return this.name
+                        };
+
+                        Student.prototype.getInfo = function () {                       // Same.
+                            return "Name: " + this.name + "\n" +
+                                    "Address: " + this.address + "\n" +
+                                    "Phone: " + this.phone + "\n" +
+                                    "Course: " + this.course + "\n" +
+                                    "Program Model: " + this.programModel;
+                        };
+
+                        //  CREATING OBJECT FROM STUDENT PROTOTYPE:
+                        let ebonieRangel1 = new Student("Ebonie Rangel", "7175 Yukon Street", " (" + 507 + ") " + 833 + '-' + 3567, "Geography", "Online Student");
+                        // New Object     // function // a 'Student' is prototype witch you call.
+                        let keenanEllwood1 = new Student("Keenan Ellwood", "2 Elm Lane",  " (" + 894 + ") " + 831 + '-' + 6482, "History", "Traditional Student");
+                        let kailanSmart1Name = new Student("Kailan Smart", "795 Harvard Street",  " (" + 925 + ") " + 856 + '-' + 5167, "Biology", "Traditional Student");
+                        let kaydanHirst1Name = new Student("Kaydan Hirst", "9 East Lakeview Ave",  " (" + 939 + ") " + 812 + '-' + 6141, "Programming", "Traditional Student");
+                        let isabellePrentice1Name = new Student("Isabelle Prentice", "700 Rock Maple St.",  " (" + 899 + ") " + 875 + '-' + 8627, "Math", "Traditional Student");
+
+
+
+                        //  FORWARDING FUNCTION - FROM STUDENT PROTOTYPE:
+                        let ebonieRangel1Name = ebonieRangel1.getName();
+                        let ebonieRangel1Info = ebonieRangel1.getInfo();
+                        let keenanEllwood1Name = keenanEllwood1.getName();
+                        let keenanEllwood1Info = keenanEllwood1.getInfo();
+                        let kailanSmart1NameName = kailanSmart1Name.getName();
+                        let kailanSmart1NameInfo = kailanSmart1Name.getInfo();
+                        let kaydanHirst1NameName = kaydanHirst1Name.getName();
+                        let kaydanHirst1NameInfo = kaydanHirst1Name.getInfo();
+                        let isabellePrentice1NameName = isabellePrentice1Name.getName();
+                        let isabellePrentice1NameInfo = isabellePrentice1Name.getInfo();
+
+
+                        //  REEDING FUNCTION - FROM STUDENT PROTOTYPE:
+                        console.log(ebonieRangel1Name);
+                        console.log(ebonieRangel1Info);
+                        console.log(keenanEllwood1Name);
+                        console.log(keenanEllwood1Info);
+                        console.log(kailanSmart1NameName);
+                        console.log(kailanSmart1NameInfo);
+                        console.log(kaydanHirst1NameName);
+                        console.log(kaydanHirst1NameInfo);
+                        console.log(isabellePrentice1NameName);
+                        console.log(isabellePrentice1NameInfo);
+
+
+
+            //  METODE FETCH - For reeding content of the file on remote server.
+            let button = document.getElementById("get-text-btn");
+            let textArea = document.getElementById("my-text-area");
+            let loader = document.getElementById("loader");
+
+
+            button.addEventListener("click", function () {
+                getData();
+            });
+
+            async function getData() {              //  Added async function im packing logic.
+
+                try {
+                    loader.style.display = "inline-block";
+                    let response = await fetch('https://borislovric07.github.io/student_list/');       // Link to my GitHub remote server.
+                                   //placed await. 
+
+                if (response.status !== 200) {
+                    throw new Error("Error while reading file.");
+                }
+
+                let text = await response.text();   //  await nad response object.
+                textArea.innerHTML = text;          //  text within.
+                } 
+                
+                catch (err) {
+                    textArea.innerHTML = 'Fetch problem: ' + err.message;
+                } 
+                
+                finally {
+                    loader.style.display = "none";
+                }
+            }
+
+
+    </script>
+
+    
+</body>
+</html>
